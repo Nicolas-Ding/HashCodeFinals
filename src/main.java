@@ -19,6 +19,7 @@ public class main {
 		//String fichier = "videos_worth_spreading";
 		// TODO Auto-generated method stub
 		Problem problem = Problem.read(fichier + ".in");
+		System.out.println("Hello World");
 		
 		System.out.println("I'm master");
 		
