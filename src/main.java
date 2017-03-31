@@ -22,7 +22,7 @@ public class main {
 		System.out.println("Hello World");
 		System.out.println("git pue la merde");
 		System.out.println("I'm master");
-		System.out.println("En vrai, c'est pas ouf à utiliser");
+		System.out.println("En vrai, c'est pas ouf à utiliser trololo");
 	}
 
 }
