@@ -20,7 +20,7 @@ public class main {
 		// TODO Auto-generated method stub
 		Problem problem = Problem.read(fichier + ".in");
 		System.out.println("Hello World");
-		
+		System.out.println("git est codé avec les pieds");
 		System.out.println("I'm master");
 		System.out.println("T'aurais pu mettre un parser quand même, au lieu de ces fichiers moisis");
 	}
