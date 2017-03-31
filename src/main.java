@@ -20,6 +20,8 @@ public class main {
 		// TODO Auto-generated method stub
 		Problem problem = Problem.read(fichier + ".in");
 		
+		System.out.println("I'm master");
+		
 	}
 
 }
