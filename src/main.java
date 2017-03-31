@@ -22,7 +22,7 @@ public class main {
 		System.out.println("Hello World");
 		
 		System.out.println("I'm master");
-		
+		System.out.println("T'aurais pu mettre un parser quand même, au lieu de ces fichiers moisis");
 	}
 
 }
