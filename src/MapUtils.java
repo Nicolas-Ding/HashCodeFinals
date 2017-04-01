@@ -44,6 +44,56 @@ public class MapUtils {
 					if (map.map[k-R+x][l-R+y] instanceof Mur) {
 						flag[k][l] = null;
 						for (int m = k; m < R+1; m++) {
+							for (int n = l; l > 0; n--) {
+								if (flag[m][n] == null)
+									break;
+								else {
+									flag[m][n] = null;
+									
+								}
+							}
+						}
+					}
+					else
+						res.add(map.map[k-R+x][l-R+y]);
+				}
+			}
+		}
+		
+		for (int k = R-1; k >= 0 ;k--) {
+			for (int l = R-1; l >=0 ; l--) {
+				if (k-R+x < 0 || l-R+y < 0 || flag[k][l] == null) {
+					flag[k][l] = null;
+				}
+				else {
+					if (map.map[k-R+x][l-R+y] instanceof Mur) {
+						flag[k][l] = null;
+						for (int m = k; m >=0; m--) {
+							for (int n = l; l >=0; n--) {
+								if (flag[m][n] == null)
+									break;
+								else {
+									flag[m][n] = null;
+									
+								}
+							}
+						}
+					}
+					else
+						res.add(map.map[k-R+x][l-R+y]);
+				}
+			}
+		}
+		
+		for (int k = R-1; k >= 0 ;k--) {
+			for (int l = R+1; l < 2*R+1 ; l++) {
+				if (k-R+x < 0 || l-R+y >=j || flag[k][l] == null) {
+					flag[k][l] = null;
+				}
+				else {
+					if (map.map[k-R+x][l-R+y] instanceof Mur) {
+						flag[k][l] = null;
+						for (int m = k; m >=0 ; m--) {
 							for (int n = l; l < R+1; n++) {
 								if (flag[m][n] == null)
 									break;
