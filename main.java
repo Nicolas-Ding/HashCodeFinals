@@ -10,8 +10,8 @@ public class main {
 	
 
 	public static void main(String[] args) throws IOException {
-		String fichier = "charleston_road";
-		//String fichier = "lets_go_higher";
+		//String fichier = "charleston_road";
+		String fichier = "lets_go_higher";
 		//String fichier = "opera";
 		//String fichier = "rue_de_londres";
 		// TODO Auto-generated method stub
@@ -21,7 +21,7 @@ public class main {
 		Case bestCase = null;
 		int cout = 0;
 		
-		while(step < 2000) {
+		while(step < 30000) {
 			if (step % 10 == 0)
 				System.out.println(step);
 			if (step==0) {
@@ -61,7 +61,7 @@ public class main {
 				for (int c = 0; c < problem.colNb; c++) {
 					Case current = problem.map.map[r][c];
 					if (current instanceof Target || current instanceof Vide) {
-						if (bestScore < 1000 * (current.targetVisibles.size() + (!current.connected && current instanceof Target ? 1 : 0))) {
+						if (bestScore < 1000 * (current.targetVisibles.size() - 15 + (!current.connected && current instanceof Target ? 1 : 0))) {
 							ArrayList<Case> trajectFromBackbone = MapUtils.getTrajectFromBackbone(current, problem.map);
 							current.trajetFromBackbone = trajectFromBackbone;
 							int score = (1000 * (current.targetVisibles.size()+ (!current.connected && current instanceof Target ? 1 : 0)))
