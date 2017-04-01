@@ -18,19 +18,19 @@ public class main {
 		problem.read(fichier + ".in");
 		int step = 0;
 		while(step < 20) {
-			System.out.println(step);
+			//System.out.println(step);
 			for (int r = 0; r < problem.rowNb; r++) {
 				for (int c = 0; c < problem.colNb; c++) {
 					Case current = problem.map.map[r][c];
 					if (current instanceof Target || current instanceof Vide) {
 						ArrayList<Case> visibles = MapUtils.connected(current, problem.radius, problem.map);
 						current.targetVisibles = visibles;
-						System.out.print(visibles.size() + " ");
+						//System.out.print(visibles.size() + " ");
 					}
-					else
-						System.out.print("----");
+					//else
+						//System.out.print("----");
 				}
-				System.out.println();
+				//System.out.println();
 			}
 			int bestScore = 0;
 			Case bestCase = null;

@@ -6,7 +6,7 @@ public class Map {
 	
 	int nbRouteur;
 	
-	ArrayList<Case> backbones;
+	ArrayList<Case> backbones = new ArrayList<>();
 	Case[][] map;
 	
 	public Map(int rowNb, int colNb) {
