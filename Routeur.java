@@ -1,7 +1,11 @@
 
 public class Routeur extends Case{
 	
-	public Routeur(int x, int y) {
-		super(x,y);
+	public Routeur (int R) {
+		super(R);
+	}
+	
+	public Routeur(int x, int y, int R) {
+		super(x,y,R);
 	}
 }

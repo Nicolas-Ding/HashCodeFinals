@@ -1,7 +1,11 @@
 
 public class Vide extends Case {
 	
-	public Vide(int x, int y) {
-		super(x,y);
+	public Vide(int R) {
+		super(R);
+	}
+	
+	public Vide(int x, int y, int R) {
+		super(x,y,R);
 	}
 }

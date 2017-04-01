@@ -44,13 +44,13 @@ public class Problem {
 				String line = br.readLine();
 				for (int c = 0; c < colNb; c++) {
 					if (line.charAt(c) == '#') {
-						map.map[r][c] = new Mur(r,c);
+						map.set(r,c,new Mur(r,c,this.radius));
 					}
 					if (line.charAt(c) == '.') {
-						map.map[r][c] = new Target(r,c);
+						map.set(r,c,new Target(r,c,this.radius));
 					}
 					if (line.charAt(c) == '-') {
-						map.map[r][c] = new Vide(r,c);
+						map.set(r,c,new Vide(r,c,this.radius));
 					}
 				}
 			}

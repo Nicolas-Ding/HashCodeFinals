@@ -6,17 +6,25 @@ public class Case {
 	int x;
 	int y;
 	int backbone;
+	int R;
 	boolean connected;
+	
+	Case targetVisibles[][];
 	
 	
 	// pour test, par exemple : if map[x][y] instanceOf Routeur
 	
-	public Case() {
-		
+	public Case(int R) {
+		this.R = R;
+		targetVisibles = new Case[2*R+1][];
+		for (int i = 0; i < 2*R+1; i++) {
+			targetVisibles[i] = new Case[2*R+1];
+		}
 	}
 	
-	public Case(int x, int y) {
+	public Case(int x, int y, int R) {
 		this.x = x;
 		this.y = y;
+		this.R = R;
 	}
 }

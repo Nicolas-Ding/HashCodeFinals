@@ -16,7 +16,9 @@ public class main {
 		Problem problem = new Problem();
 		problem.read(fichier + ".in");
 		System.out.println(problem.toString());
-
+		
+		
+		
 	}
 
 }
