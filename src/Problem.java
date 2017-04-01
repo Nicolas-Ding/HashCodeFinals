@@ -9,7 +9,7 @@ public class Problem {
 
 	
 	public Problem() {
-		int ans = 0;
+		int ans = 42;
 	}
 	
 	public static Problem read(String file) {
