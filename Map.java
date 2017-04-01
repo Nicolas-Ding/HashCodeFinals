@@ -6,6 +6,7 @@ public class Map {
 	
 	int nbRouteur;
 	
+	ArrayList<Case> routeurs = new ArrayList<>();
 	ArrayList<Case> backbones = new ArrayList<>();
 	Case[][] map;
 	
@@ -27,7 +28,7 @@ public class Map {
 				return;
 			}
 			if (current.backbone == Case.ADDED_BACKBONE) {
-				System.err.println("Error : Attempting to put backbone to existing value");
+				System.out.println("Error : Attempting to put backbone to existing value ["+x+","+y+"]");
 				return;
 			}
 		}
@@ -70,9 +71,7 @@ public class Map {
 			}
 		}
 		map[x][y] = newCase;
-		if (newCase.backbone == Case.ADDED_BACKBONE) {
-			this.setBackbone(x, y);
-		}
+
 		if (newCase instanceof Routeur) {
 			nbRouteur++;
 		}

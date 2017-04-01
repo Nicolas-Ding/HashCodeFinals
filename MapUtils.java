@@ -4,7 +4,7 @@ import java.util.Arrays;
 public class MapUtils {
 	
 	public static void AddToRes(ArrayList<Case> res, Map map, int x, int y) {
-		if (map.map[x][y] instanceof Target)
+		if (map.map[x][y] instanceof Target && map.map[x][y].connected == false)
 			res.add(map.map[x][y]);
 	}
 
@@ -131,7 +131,7 @@ public class MapUtils {
                     if (map.map[k-R+x][l-R+y] instanceof Mur) {
                         flag[k][l] = null;
                         for (int m = k; m < 2*R+1; m++) {
-                            for (int n = l; n > 0; n--) {
+                            for (int n = l; n >= 0; n--) {
                                 if (flag[m][n] == null)
                                     break;
                                 else {
@@ -205,7 +205,7 @@ public class MapUtils {
         ArrayList<Case> res = new ArrayList<Case>();
         int minDist = Math.max(map.rowNb, map.colNb);
         Case caseTemp = null;
-        for (Case c : map.backbones) {
+        for (Case c : map.routeurs) {
             int tempDist = Math.max(Math.abs(source.x-c.x), Math.abs(source.y-c.y));
             if (tempDist < minDist) {
                 caseTemp = c;
@@ -224,7 +224,7 @@ public class MapUtils {
         }
         else {
             for (int i = 1; i <= Math.abs(source.y-caseTemp.y) - Math.abs(source.x-caseTemp.x);i++) {
-                res.add(map.map[caseTemp.x][caseTemp.y+(i+Math.abs(source.x-caseTemp.x))*signY]);
+                res.add(map.map[source.x][caseTemp.y+(i+Math.abs(source.x-caseTemp.x))*signY]);
             }
         }
         return res;

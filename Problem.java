@@ -1,9 +1,9 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 
 public class Problem {
 	int rowNb;
@@ -56,7 +56,9 @@ public class Problem {
 			}
 			
 			//set connected
-			map.map[startX][startY].backbone = Case.INITIAL_BACKBONE; 
+			map.map[startX][startY].backbone = Case.INITIAL_BACKBONE;
+			map.backbones.add(map.map[startX][startY]);
+			map.routeurs.add(map.map[startX][startY]);
 
 			
 		} catch (IOException e) {
@@ -84,4 +86,35 @@ public class Problem {
 		}
 		return ans;
 	}
+	
+	public static void writer(Map map, String name) throws IOException {
+        FileWriter fw = new FileWriter(name);
+        BufferedWriter writer = new BufferedWriter(fw);
+        writer.write(Integer.toString(map.backbones.size()-1));
+        for (int i = 1; i < map.backbones.size(); i++) {
+            Case c = map.backbones.get(i);
+            writer.newLine();
+            writer.write(Integer.toString(c.x));
+            writer.write(" ");
+            writer.write(Integer.toString(c.y));
+        }
+        ArrayList<Case> routeurs = new ArrayList<Case>();
+        for (int i = 0; i < map.map.length; i++) {
+            for (int j = 0; j < map.map[i].length; j++) {
+                if (map.map[i][j] instanceof Routeur) {
+                    routeurs.add(map.map[i][j]);
+                }
+            }
+        }
+        writer.newLine();
+        writer.write(Integer.toString(routeurs.size()));
+        for (Case c : routeurs) {
+            writer.newLine();
+            writer.write(Integer.toString(c.x));
+            writer.write(" ");
+            writer.write(Integer.toString(c.y));
+        }
+        writer.close();
+        fw.close();
+    }
 }

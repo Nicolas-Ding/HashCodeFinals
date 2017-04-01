@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class main {
@@ -17,30 +18,53 @@ public class main {
 		Problem problem = new Problem();
 		problem.read(fichier + ".in");
 		int step = 0;
-		while(step < 20) {
-			//System.out.println(step);
-			for (int r = 0; r < problem.rowNb; r++) {
-				for (int c = 0; c < problem.colNb; c++) {
-					Case current = problem.map.map[r][c];
-					if (current instanceof Target || current instanceof Vide) {
-						ArrayList<Case> visibles = MapUtils.connected(current, problem.radius, problem.map);
-						current.targetVisibles = visibles;
-						//System.out.print(visibles.size() + " ");
+		Case bestCase = null;
+		int cout = 0;
+		
+		while(step < 2000) {
+			if (step % 10 == 0)
+				System.out.println(step);
+			if (step==0) {
+				for (int r = 0; r < problem.rowNb; r++) {
+					for (int c = 0; c < problem.colNb; c++) {
+						Case current = problem.map.map[r][c];
+						if (current instanceof Target || current instanceof Vide) {
+							ArrayList<Case> visibles = MapUtils.connected(current, problem.radius, problem.map);
+							current.targetVisibles = visibles;
+							//System.out.print(visibles.size() + " ");
+							
+						}
+						/*else
+							System.out.print("----");*/
 					}
-					//else
-						//System.out.print("----");
+					//System.out.println();
 				}
-				//System.out.println();
+				//return;
+			}
+			else {
+				for (int r = Math.max(0, bestCase.x - 2*problem.radius); r < Math.min(problem.rowNb, bestCase.x + 2*problem.radius); r++) {
+					for (int c = Math.max(0, bestCase.y - 2*problem.radius); c < Math.min(problem.colNb,  bestCase.y + 2*problem.radius); c++) {
+						Case current = problem.map.map[r][c];
+						if (current instanceof Target || current instanceof Vide) {
+							ArrayList<Case> visibles = MapUtils.connected(current, problem.radius, problem.map);
+							current.targetVisibles = visibles;
+							//System.out.print(visibles.size() + " ");
+						}
+						//else
+							//System.out.print("----");
+					}
+				}
 			}
 			int bestScore = 0;
-			Case bestCase = null;
+			bestCase = null;
 			for (int r = 0; r < problem.rowNb; r++) {
 				for (int c = 0; c < problem.colNb; c++) {
 					Case current = problem.map.map[r][c];
 					if (current instanceof Target || current instanceof Vide) {
-						if (bestScore < 1000 * (current.targetVisibles.size()+1)) {
+						if (bestScore < 1000 * (current.targetVisibles.size() + (!current.connected && current instanceof Target ? 1 : 0))) {
 							ArrayList<Case> trajectFromBackbone = MapUtils.getTrajectFromBackbone(current, problem.map);
-							int score = (1000 * (current.targetVisibles.size()+1))
+							current.trajetFromBackbone = trajectFromBackbone;
+							int score = (1000 * (current.targetVisibles.size()+ (!current.connected && current instanceof Target ? 1 : 0)))
 										- (problem.backbonePrice * trajectFromBackbone.size());
 							if (score > bestScore) {
 								bestScore = score;
@@ -51,15 +75,26 @@ public class main {
 					}
 				}	
 			}
-			if (bestScore > problem.routerPrice) {
+
+			if (bestScore > problem.routerPrice && cout +  problem.backbonePrice * bestCase.trajetFromBackbone.size() + problem.routerPrice < problem.budget) {
+				cout += problem.backbonePrice * bestCase.trajetFromBackbone.size() + problem.routerPrice;
 				for(Case current : bestCase.targetVisibles) {
 					current.connected = true;
 				}
-				for (Case current : bestCase.trajetFromBackbone) {
+				int lastCorrectIndex = -1;
+				for (int i = 0; i < bestCase.trajetFromBackbone.size() ; i++) {
+					Case current = bestCase.trajetFromBackbone.get(i);
+					if (
+							problem.map.map[current.x][current.y].backbone == Case.ADDED_BACKBONE 
+							|| problem.map.map[current.x][current.y].backbone == Case.INITIAL_BACKBONE )
+						lastCorrectIndex = i;
+				}
+				for (int i = lastCorrectIndex + 1; i < bestCase.trajetFromBackbone.size() ; i++) {
+					Case current = bestCase.trajetFromBackbone.get(i);
 					problem.map.setBackbone(current.x, current.y);
-					problem.map.backbones.add(current);
 				}
 				problem.map.set(bestCase.x, bestCase.y, new Routeur(bestCase.x, bestCase.y, problem.radius));
+				problem.map.routeurs.add(problem.map.map[bestCase.x][bestCase.y]);
 			}
 			else {
 				break;
@@ -68,6 +103,7 @@ public class main {
 			step++;
 		}
 		
+		Problem.writer(problem.map, fichier + ".out");
 	}
 
 }
