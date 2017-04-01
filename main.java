@@ -8,16 +8,15 @@ public class main {
 	
 
 	public static void main(String[] args) throws IOException {
-		//String fichier = "me_at_the_zoo";
-		String fichier = "Kittens";
-		//String fichier = "trending_today";
-		//String fichier = "videos_worth_spreading";
+		String fichier = "charleston_road";
+		//String fichier = "lets_go_higher";
+		//String fichier = "opera";
+		//String fichier = "rue_de_londres";
 		// TODO Auto-generated method stub
-		Problem problem = Problem.read(fichier + ".in");
-		System.out.println("Hello World");
-		System.out.println("git pue la merde");
-		System.out.println("I'm master");
-		System.out.println("En vrai, c'est pas ouf à utiliser");
+		Problem problem = new Problem();
+		problem.read(fichier + ".in");
+		System.out.println(problem.toString());
+
 	}
 
 }
