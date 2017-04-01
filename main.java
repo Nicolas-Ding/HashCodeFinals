@@ -27,16 +27,26 @@ public class main {
 					}
 				}
 			}
-			int maxScore = 0;
+			int bestScore = 0;
 			Case bestCase = null;
 			for (int r = 0; r < problem.rowNb; r++) {
 				for (int c = 0; c < problem.colNb; c++) {
 					Case current = problem.map.map[r][c];
-					ArrayList trajetFromBackbone = MapUtils.getTrajectFromBackbone();
-					int score = (1000 * current.targetVisibles.size()) 
-
+					if (bestScore < 1000 * current.targetVisibles.size()) {
+						ArrayList<Case> trajectFromBackbone = MapUtils.getTrajectFromBackbone(current, problem.map);
+						int score = (1000 * current.targetVisibles.size())
+									- (problem.backbonePrice * trajectFromBackbone.size());
+						if (score > bestScore) {
+							bestScore = score;
+							bestCase = current;
+						}
+					}
 				}	
 			}
+			if (maxScore > problem.routerPrice) {
+				
+			}
+
 			
 		}
 		
