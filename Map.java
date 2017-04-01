@@ -61,6 +61,14 @@ public class Map {
 	}
 	
 	public void set(int x, int y, Case newCase) {
+		Case oldCase = map[x][y];
+		if (oldCase != null)
+		{
+			newCase.connected = oldCase.connected;
+			if (oldCase.backbone == Case.ADDED_BACKBONE) {
+				newCase.backbone = Case.ADDED_BACKBONE;
+			}
+		}
 		map[x][y] = newCase;
 		if (newCase.backbone == Case.ADDED_BACKBONE) {
 			this.setBackbone(x, y);
