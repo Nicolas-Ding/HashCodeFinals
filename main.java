@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class main {
@@ -15,9 +16,29 @@ public class main {
 		// TODO Auto-generated method stub
 		Problem problem = new Problem();
 		problem.read(fichier + ".in");
-		System.out.println(problem.toString());
 		
-		
+		while(true) {
+			for (int r = 0; r < problem.rowNb; r++) {
+				for (int c = 0; c < problem.colNb; c++) {
+					Case current = problem.map.map[r][c];
+					if (current instanceof Target || current instanceof Vide) {
+						ArrayList<Case> visibles = MapUtils.connected(current, problem.radius, problem.map);
+						current.targetVisibles = visibles;
+					}
+				}
+			}
+			int maxScore = 0;
+			Case bestCase = null;
+			for (int r = 0; r < problem.rowNb; r++) {
+				for (int c = 0; c < problem.colNb; c++) {
+					Case current = problem.map.map[r][c];
+					ArrayList trajetFromBackbone = MapUtils.getTrajectFromBackbone();
+					int score = (1000 * current.targetVisibles.size()) 
+
+				}	
+			}
+			
+		}
 		
 	}
 
